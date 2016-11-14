@@ -26,11 +26,11 @@ router.post('/', function(req, res, next) {
 	});
 	
 	//res.json(req.body);
-	page.save()
-	
-	.then(function(page) {
-		res.json(page);
-	});
+	page.save().then(function(page) {
+		res.redirect(page.route);
+	}).catch(next);
+
+
 });
 
 // var urlTitleGenerator = function(title) {
@@ -53,7 +53,8 @@ router.get('/:urlTitle', function(req, res, next) {
 		}
 	})
 	.then(function(foundPage) {
-		res.render('wikipage', {title: req.body.title, content: req.body.content});
+		console.log('string: ', foundPage);
+		res.render('../views/wikipage', {title: foundPage.title, content: foundPage.content});
 	})
 
 	.catch(next);
