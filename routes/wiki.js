@@ -47,6 +47,17 @@ router.get('/add', function(req, res, next) {
 
 
 router.get('/:urlTitle', function(req, res, next) {
-	var urlTitle = req.params.urlTitle;
-	res.send(urlTitle);
-})
+	Page.findOne({
+		where: {
+			urlTitle: req.params.urlTitle
+		}
+	})
+	.then(function(foundPage) {
+		res.render('wikipage', {title: req.body.title, content: req.body.content});
+	})
+
+	.catch(next);
+
+	// var urlTitle = req.params.urlTitle;
+	// res.send(urlTitle);
+});

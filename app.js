@@ -18,9 +18,9 @@ app.use(express.static('/public'));
 
 app.use('/wiki', wikiRouter);
 
-models.User.sync({force: true}) //'force: true' will re-run the define tables when the new columns are added or modified
+models.User.sync() //'force: true' will re-run the define tables when the new columns are added or modified
 .then(function () {
-    return models.Page.sync({force: true})
+    return models.Page.sync()
 })
 .then(function () {
     app.listen(3001, function () {
